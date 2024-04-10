@@ -18,7 +18,10 @@
  *
  */
 function getCurrentFunctionName() {
-  return arguments.callee.name;
+  function getName() {
+    return getName.caller.name;
+  }
+  return getName();
 }
 
 /**
@@ -33,7 +36,9 @@ function getCurrentFunctionName() {
  *
  */
 function getFunctionBody(func) {
-  return func;
+  if (!func) return '';
+  const result = `${func}`;
+  return result;
 }
 
 /**
@@ -50,8 +55,12 @@ function getFunctionBody(func) {
  *  ]) => [0, 1, 2]
  *
  */
-function getArgumentsCount(...param) {
-  return param[0].length;
+function getArgumentsCount(param) {
+  const result = [];
+  for (let i = 0; i < param.length; i += 1) {
+    result.push(i);
+  }
+  return result;
 }
 
 /**
@@ -70,8 +79,11 @@ function getArgumentsCount(...param) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  const power = exponent;
+  return function getPower(n) {
+    return n ** power;
+  };
 }
 
 /**
