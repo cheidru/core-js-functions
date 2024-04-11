@@ -99,27 +99,41 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  function poly(...params) {
-    let result = 'y = ';
+function getPolynom(...params) {
+  function poly() {
+    let result = '';
     if (!params) return null;
     for (let i = 0; i < params.length; i += 1) {
-      switch(i) {
+      let prefix = '';
+      switch (i) {
         case 0:
-          result += `${Math.abs(params[0])}`;
+          result = `${Math.abs(params[params.length - 1 - i])}`;
           break;
         case 1:
-          let prefix = params[1] > 1? `${params[1]}*` : '';
-          result = params[0] < 0 ? `${prefix}x - ${result}`: `${prefix}x + ${result}`;
+          prefix =
+            params[params.length - 1 - i] > 1
+              ? `${params[params.length - 1 - i]}*`
+              : '';
+          result =
+            params[params.length - i] < 0
+              ? `${prefix}x - ${result}`
+              : `${prefix}x + ${result}`;
           break;
         default:
-          prefix = params[i] > 1? `${params[i]}*` : '';
-          result = params[i - 1] < 0 ? `${prefix}x^${i} - ${result}`: `${prefix}x^${i} + ${result}`;
+          prefix =
+            params[params.length - 1 - i] > 1
+              ? `${params[params.length - 1 - i]}*`
+              : '';
+          result =
+            params[params.length - i] < 0
+              ? `${prefix}x**${i} - ${result}`
+              : `${prefix}x**${i} + ${result}`;
       }
     }
+    result = `y = ${result}`;
     return result;
   }
-  return poly();
+  return poly(params);
 }
 
 /**
