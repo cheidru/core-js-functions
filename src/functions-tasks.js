@@ -100,7 +100,26 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-  throw new Error('Not implemented');
+  function poly(...params) {
+    let result = 'y = ';
+    if (!params) return null;
+    for (let i = 0; i < params.length; i += 1) {
+      switch(i) {
+        case 0:
+          result += `${Math.abs(params[0])}`;
+          break;
+        case 1:
+          let prefix = params[1] > 1? `${params[1]}*` : '';
+          result = params[0] < 0 ? `${prefix}x - ${result}`: `${prefix}x + ${result}`;
+          break;
+        default:
+          prefix = params[i] > 1? `${params[i]}*` : '';
+          result = params[i - 1] < 0 ? `${prefix}x^${i} - ${result}`: `${prefix}x^${i} + ${result}`;
+      }
+    }
+    return result;
+  }
+  return poly();
 }
 
 /**
