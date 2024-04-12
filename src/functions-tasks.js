@@ -130,10 +130,9 @@ function getPolynom(...params) {
               : `${prefix}x**${i} + ${result}`;
       }
     }
-    result = `y = ${result}`;
-    return result;
+    return new Function('x', `return ${result}`);
   }
-  return poly(params);
+  return poly();
 }
 
 /**
